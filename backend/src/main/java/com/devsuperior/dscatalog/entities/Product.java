@@ -97,6 +97,10 @@ public class Product implements Serializable {
         this.categories = categories;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
