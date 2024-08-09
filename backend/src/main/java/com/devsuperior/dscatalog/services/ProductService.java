@@ -59,7 +59,7 @@ public class ProductService {
             entity = repository.save(entity);
             return new ProductDTO(entity);
         }catch (EntityNotFoundException e){
-            throw new ResourceNotFoundException("Id not found" + id);
+            throw new ResourceNotFoundException("Id not found " + id);
         }
     }
     @Transactional(propagation = Propagation.SUPPORTS)
