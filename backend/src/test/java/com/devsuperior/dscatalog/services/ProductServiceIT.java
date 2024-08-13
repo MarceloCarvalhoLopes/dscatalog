@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductServiceIT {
 
 
+
     @Autowired
     private ProductService service;
 
@@ -26,7 +27,6 @@ public class ProductServiceIT {
 
     private Long existingId;
     private Long nonExistingId;
-    private Long dependentId;
     private Long countTotalProduct;
 
 
@@ -35,10 +35,7 @@ public class ProductServiceIT {
 
         existingId    = 1L;
         nonExistingId = 400L;
-        dependentId   = 3L;
         countTotalProduct = 25L;
-
-
 
     }
 
