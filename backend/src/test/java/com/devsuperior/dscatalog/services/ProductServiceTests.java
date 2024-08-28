@@ -46,7 +46,7 @@ public class ProductServiceTests {
 
     private PageImpl<Product> page;
     private Product product;
-    ProductDTO productDTO;
+
     private Category category;
 
 
@@ -58,7 +58,6 @@ public class ProductServiceTests {
 
         product  = Factory.createProduct();
         category = Factory.createCategory();
-        productDTO = Factory.createProductDTO();
         page = new PageImpl<>(List.of(product));
 
         Mockito.when(repository.existsById(existingId)).thenReturn(true);
@@ -75,7 +74,7 @@ public class ProductServiceTests {
         Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
 
 
-        Mockito.when(repository.getOne(existingId)).thenReturn(product);
+        Mockito.when(repository.getReferenceById(existingId)).thenReturn(product);
         Mockito.when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
         Mockito.when(categoryRepository.getReferenceById(existingId)).thenReturn(category);
@@ -88,17 +87,16 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void updateShouldReturnProductDtoWhenIdExists(){
-
+    public void updateShouldReturnProductDTOWhenIdExists(){
+        ProductDTO productDTO = Factory.createProductDTO();
         ProductDTO result = service.update(existingId, productDTO);
-
         Assertions.assertNotNull(result);
-    }
 
+    }
 
     @Test
     public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist(){
-
+        ProductDTO productDTO = Factory.createProductDTO();
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.update(nonExistingId, productDTO);
         });
@@ -110,7 +108,6 @@ public class ProductServiceTests {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.findById(nonExistingId);
         });
-
     }
 
     @Test
@@ -120,8 +117,6 @@ public class ProductServiceTests {
 
         Assertions.assertNotNull(result);
     }
-
-
 
     @Test
     public void deleteShouldDoNothingWhenIdExists(){
@@ -142,7 +137,6 @@ public class ProductServiceTests {
         });
 
     }
-
 
     @Test
     public void findAllPagedShouldReturnPage(){
