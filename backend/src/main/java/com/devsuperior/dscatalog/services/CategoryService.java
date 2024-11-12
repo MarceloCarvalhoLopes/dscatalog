@@ -27,18 +27,10 @@ public class CategoryService {
     private CategoryRepository  repository;
 
     @Transactional(readOnly = true)
-    public Page<CategoryDTO> findAllPaged(Pageable pageable) {
-       Page<Category> list =  repository.findAll(pageable);
+    public List<CategoryDTO> findAll() {
+       List<Category> list =  repository.findAll();
 
-//       List<CategoryDTO> listDto = new ArrayList<>();
-//       for (Category category : list){
-//          listDto.add( new CategoryDTO(category));
-//       }
-
-//        method reference
-//        return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
-
-        return list.map(x -> new CategoryDTO(x));
+        return list.stream().map(CategoryDTO::new).toList();
 
     }
     @Transactional(readOnly = true)
